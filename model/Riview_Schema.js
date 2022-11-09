@@ -16,7 +16,7 @@ const Riview_Schema = new mongoose.Schema({
         type: String,
         require: true
     },
-    riview: {
+    review: {
         type: String,
         require: true
     },
@@ -29,5 +29,7 @@ const Riview_Schema = new mongoose.Schema({
         default: true
     },
 })
+
+
 Riview_Schema.set("timestamps", true)
 module.exports = mongoose.model('riview', Riview_Schema)
