@@ -1,8 +1,9 @@
+const { string } = require('@hapi/joi');
 const mongoose = require('mongoose');
 
 const Company_Schema = new mongoose.Schema({
 
-    userId: {
+    userID: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,
         ref: "user"
@@ -10,6 +11,7 @@ const Company_Schema = new mongoose.Schema({
     companyname: {
         type: String,
         require: true
+    
     },
     city: {
         type: String,
@@ -19,9 +21,13 @@ const Company_Schema = new mongoose.Schema({
         type: String,
         require: true
     },
-    foundedAt: {
+    company_logo : {
+        type : String
+    },
+    founded: {
         type: String
     },
+    profilepic : String,
     iS_Active: {
         type: Boolean,
         default: true

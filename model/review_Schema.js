@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Riview_Schema = new mongoose.Schema({
+const review_Schema = new mongoose.Schema({
 
-    userId: {
+    userID: {
         type: mongoose.Schema.Types.ObjectId,
         require: true,
         ref: "user"
@@ -31,5 +31,5 @@ const Riview_Schema = new mongoose.Schema({
 })
 
 
-Riview_Schema.set("timestamps", true)
-module.exports = mongoose.model('riview', Riview_Schema)
+review_Schema.set("timestamps", true)
+module.exports = mongoose.model('riview', review_Schema)
