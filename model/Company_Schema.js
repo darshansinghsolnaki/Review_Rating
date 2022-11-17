@@ -1,4 +1,3 @@
-const { string } = require('@hapi/joi');
 const mongoose = require('mongoose');
 
 const Company_Schema = new mongoose.Schema({
@@ -10,8 +9,7 @@ const Company_Schema = new mongoose.Schema({
     },
     companyname: {
         type: String,
-        require: true
-    
+        require: true    
     },
     city: {
         type: String,
@@ -27,7 +25,6 @@ const Company_Schema = new mongoose.Schema({
     founded: {
         type: String
     },
-    profilepic : String,
     iS_Active: {
         type: Boolean,
         default: true

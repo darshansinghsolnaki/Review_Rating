@@ -17,37 +17,40 @@ const sendMail = async (req, res) => {
     })
 }
 
-// this is top require --> const User_Schema = require('../model/User_Schema');
 const userSignup = async (req, res) => {
-    // const email = req.body.email
-    const userdata = new User_Schema(req.body
-        //{ name: req.body.name,
-        // city: req.body.city,
-        // number: req.body.number,
-        // email: req.body.email,
-        // password: req.body.password,
-        // state: req.body.state,
-        // iS_Active: req.body.iS_Active,
-        // role: req.body.role}
-    )
+    const userData = new User_Schema({
+        name : req.body.name,
+        city : req.body.city,
+        number : req.body.number,
+        email : req.body.email,
+        password : req.body.password,
+        state : req.body.state,
+        iS_Active : req.body.iS_Active,
+        role : req.body.role
+    })
     console.log(req.body.name);
     try {
-        // const { email, password } = req.body;
-        // const new_user = new User_Schema(req.body);
-        // const salt = await bcrypt.genSalt(10);
-        // new_user.password = await bcrypt.hash(password, salt);
-
-        //    const userExists = await user.findOne({ email: email })
-        //    if (userExists) {
-        //        return res.status(400).json({ status: 400, erro: "email already exit" });
-        //    }
+        const { email, password } = req.body;
         console.log('inside try');
-        const add = await userdata.save()
-        // const add = await new_user.save()
+        const userExists = await User_Schema.findOne({ email: email })
+        if (userExists) {
+            return res.status(400).json({
+                status: 400, erro:
+                    "email already exit"
+            });
+        }
+        const salt = await bcrypt.genSalt(10);
+        userData.password = await bcrypt.hash(password, salt);
+        // const filepath = `/uploads${req.file.filename}`
+        // userData.profilepic = filepath
+        const add = await userData.save()
         console.log('after try')
         res.json(add)
-    } catch (err) {
-        res.send('Error')
+    } catch (error) {
+        res.send({
+            sattus: 400,
+            message: error.message
+        })
     }
 }
 
@@ -80,8 +83,8 @@ const userLogin = async (req, res) => {
                 });
             }
         }
-    } catch (err) {
-        console.log('Error' + err);
+    } catch (error) {
+        console.log('Error' + error);
     }
 }
 
@@ -115,7 +118,11 @@ const sendUserResetPasswordEmail = async (req, res) => {
                 subjet: "password Reset link ",
                 html: `<a href=${link}> Click Here To Reset Password </a>`
             })
-            res.send({ "status": "success", "message": "Password Reset Email Send....PLease \ Check Your Email", "info": info })
+            res.send({
+                "status": "success",
+                "message": "Password Reset Email Send....PLease \ Check Your Email",
+                "info": info
+            })
         } else {
             res.send({
                 "status": "Failed",
@@ -166,4 +173,6 @@ const userPasswordReset = async (req, res) => {
 
     }
 }
+
+
 module.exports = { userSignup, sendMail, userLogin, sendUserResetPasswordEmail, userPasswordReset }

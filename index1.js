@@ -8,7 +8,7 @@
 
 // const show = () => {
 //     console.log('first');
-    
+
 //     const res = add(20,40)
 //     console.log(res);
 
@@ -48,17 +48,19 @@
 
 
 
-function functionname(){
+// function functionname() {
 
 
-    var a = 1 
-    if (true) {
-        var b = 2
-        console.log(a);
-    }}
-    functionname()
-    // console.log(a);
-    // console.log(b);
+//     var a = 1
+//     if (true) {
+//         var b = 2
+//         console.log(a);
+//     }
+// }
+// functionname()
+
+// console.log(a);
+// console.log(b);
 // console.log(a);
 
 
@@ -93,3 +95,55 @@ function functionname(){
 // arrays.splice(3,2,"adsrtahsa","SSKSDASD")
 // console.log(arrays);
 
+
+//////////////// CREATE BUFFER Chunk //////////////////
+// var buffer = Buffer.alloc(10);
+// // console.log(buffer);
+// buffer.write('hello this iis the darsgan')
+// console.log(buffer);
+
+
+
+// var fs = require('fs')
+// var http = require('http');
+// http.createServer(function (req, res) {
+//     var content = ''
+//     var reader = fs.createReadStream('demo.txt')
+//     reader.setEncoding('utf-8')
+//     reader.on('error', function (err) {
+//         console.log(err);
+//     }).on('data', function (chunk) {
+//         content += chunk  // content = chunk + content
+//     }).on('end', function (err) {
+//         res.on('erro', function (err) {
+//             console.log(err);
+//         })
+//         res.setHeader('200', { 'content-Type': 'plain/text' })
+//         res.write(content)
+//         res.end()
+//     })
+// }).listen(8000, () => {
+//     console.log('thiss is the srver texting onl for buudeer');
+// })
+
+
+
+var fs = require('fs')
+var http = require('http');
+
+http.createServer(function (req, res) {
+var content = ''
+        var content = "hello this is node js whitestream"
+        var writer = fs.createReadStream('demo.txt')
+        writer.write(content, 'utf-8')
+        writer.end()
+        writer.on('finish', function () {
+            console.log('data write succesfully');
+        }).on('error', function (err) {
+            console.log(err);
+    })
+})
+res.end()
+    }).listen(8080, () => {
+        console.log('thiss is the srver texting onl for buudeer');
+    })

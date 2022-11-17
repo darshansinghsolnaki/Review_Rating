@@ -14,9 +14,6 @@ const User_Schema = require('./model/User_Schema');
 const { sendmail } = require('./controllers/userController');
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('This is the get Request')
-});
 
 app.use('/',router)
 

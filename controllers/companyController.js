@@ -16,10 +16,9 @@ const createCompany = async (req, res) => {
         const addcompany = await companydata.save()
         res.json(req.body)
       
-            const filepath = `/upload/logo ${req.file.filename}`
+            const filepath = `/uploads${req.file.filename}`
             companydata.company_logo = filepath
-            // const logopath = `/upload ${req.file.filename}`
-            // companydata.profilepic = logopath
+         
     } catch (error) {
         res.json({
             status : 440,
@@ -57,14 +56,21 @@ const createreview = async (req, res) => {
     }
 }
 
+
 const companyReviewDatils = async (req, res) => {
     let id = req.params.key
     console.log('api company id', id);
 const company = await Company_Schema.findById(id).lean()
-const comment = await review_Schema.find({'companyId': `${id}`}).populate({
-    path : 'userID', select : ""
+const comments = await review_Schema.find({'companyId': `${id}`}).populate({
+    path : 'userID', select : "name profilepic"
+}).populate({
+    path : "companyId", select : "_id"
 })
-
+console.log('**** coment ', comments)
+var data = {
+    "company" : company,
+    "comments" : comments   }
+    res.json(data)
 }
 
-module.exports = { createCompany, companylist, createreview }
+module.exports = { createCompany, companylist, createreview, companyReviewDatils }
